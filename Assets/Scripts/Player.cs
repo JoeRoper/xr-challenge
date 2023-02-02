@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     public TextMeshProUGUI scoreUI;
 
-    private int score = 0;
+    public int score = 0;
 
     // Update is called once per frame
     void Update()
@@ -35,6 +35,14 @@ public class Player : MonoBehaviour
                 score++;
                 scoreUI.text = ("SCORE: ") + score.ToString();
                 collision.gameObject.GetComponent<Pickup>().GetPickedUp();
+            }
+        }
+
+        if (collision.gameObject.name == "Finish Zone")
+        {
+            if (collision.gameObject.GetComponent<FinishZone>().finishZoneOpen)
+            {
+                Debug.Log("You Win");
             }
         }
     }
