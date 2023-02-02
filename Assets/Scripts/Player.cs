@@ -1,13 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
 
     public CharacterController controller;
-
     public float speed = 6.0f;
+
+    public TextMeshProUGUI scoreUI;
+
+    private int score = 0;
 
     // Update is called once per frame
     void Update()
@@ -28,7 +32,12 @@ public class Player : MonoBehaviour
         {
             foreach (GameObject g in GameObject.FindGameObjectsWithTag("Pickup"))
             {
-                g.GetComponent<Pickup>().GetPickedUp();
+                if (!g.GetComponent<Pickup>().IsCollected)
+                {
+                    score++;
+                    scoreUI.text = ("SCORE: ") + score.ToString();
+                    g.GetComponent<Pickup>().GetPickedUp();
+                }
             }
         }
     }
