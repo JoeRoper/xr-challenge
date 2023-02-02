@@ -21,4 +21,15 @@ public class Player : MonoBehaviour
             controller.Move(direction * speed * Time.deltaTime);
         }
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Pickup")
+        {
+            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Pickup"))
+            {
+                g.GetComponent<Pickup>().GetPickedUp();
+            }
+        }
+    }
 }
