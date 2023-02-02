@@ -26,18 +26,15 @@ public class Player : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider collision)
     {
-        if (other.gameObject.tag == "Pickup")
+        if (collision.gameObject.tag == "Pickup")
         {
-            foreach (GameObject g in GameObject.FindGameObjectsWithTag("Pickup"))
+            if (!collision.gameObject.GetComponent<Pickup>().IsCollected)
             {
-                if (!g.GetComponent<Pickup>().IsCollected)
-                {
-                    score++;
-                    scoreUI.text = ("SCORE: ") + score.ToString();
-                    g.GetComponent<Pickup>().GetPickedUp();
-                }
+                score++;
+                scoreUI.text = ("SCORE: ") + score.ToString();
+                collision.gameObject.GetComponent<Pickup>().GetPickedUp();
             }
         }
     }
